@@ -6,6 +6,18 @@ const passport = require('passport');
 
 const User = require('../models/User');
 
+router.get('/getAll', (req, res) => {
+  User.find({}, (err, users) => {
+    if(err) {
+      return res.status(400).json({
+        users: 'Something went wrong'
+      });
+    } else {
+      res.json(users);
+    }
+  });
+});
+
 router.post('/register', (req, res) => {
   User.findOne({
     email: req.body.email
