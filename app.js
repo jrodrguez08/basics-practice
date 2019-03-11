@@ -7,6 +7,7 @@ const config = require('./config');
 const users = require('./server/routes/User');
 
 const app = express();
+
 app.use(passport.initialize());
 require('./server/strategies/local')(passport);
 
@@ -18,16 +19,17 @@ mongoose.connect(config.db, {useNewUrlParser: true}).then(
     console.log('Database is connected')
   },
   error => {
-    console.log(`Can not connect to the database ${error}`)
+    console.log(`Can't connect to the database ${error}`)
   }
 );
 
 const PORT = process.env.PORT || 8080;
 
+//routes
 app.use('/api/users', users);
 
 app.get('/', function (req, res) {
-  res.send('hello');
+  res.send('Server Running');
 });
 
 app.listen(PORT, () => {
